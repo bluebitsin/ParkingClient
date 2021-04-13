@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ParkingClient</string>
+    <string name="text_dashboard_h1">Reserve a</string>
+    <string name="text_dashboard_h2">Parking Space</string>
+    <string name="text_parking">Parking</string>
+    <string name="text_search">Search</string>
+    <string name="text_ticket">Ticket</string>
+    <string name="text_account">Account</string>
+</resources>
