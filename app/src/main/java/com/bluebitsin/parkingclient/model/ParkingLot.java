@@ -1,14 +1,20 @@
 package com.bluebitsin.parkingclient.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 public class ParkingLot implements Serializable {
 
+    @SerializedName("id")
     private int parkingLotId;
     private String name;
     private String address;
+    @SerializedName("no_of_blocks")
     private int totalBlocks;
+    @SerializedName("zip")
     private int zipcode;
+    @SerializedName("operating_company_name")
     private String operatingCompany;
 
     public ParkingLot(int parkingLotId, String name, String address, int totalBlocks, int zipcode, String operatingCompany) {
