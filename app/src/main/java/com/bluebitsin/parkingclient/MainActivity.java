@@ -17,7 +17,7 @@ import com.bluebitsin.parkingclient.fragments.TicketFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
-        ParkingFragment.OnClickBookingListener {
+        BookingConfirmationDialog.BookingConfirmationListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,14 +69,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         return false;
     }
 
-    @Override
-    public void onClickBooking() {
 
-        // show confirmation dialog
-        Bundle args = new Bundle();
-        DialogFragment dialog = new BookingConfirmationDialog();
-        dialog.setArguments(args);
-        dialog.show(getSupportFragmentManager(), ParkingConstants.TAG_SCAN_STATUS_DIALOG);
-        Toast.makeText(this, "Booking CLicked", Toast.LENGTH_SHORT).show();
+    @Override
+    public void onBookingConfirmation() {
+
+        //make api call booking and generate ticket
+
+        Toast.makeText(this, "Generating Ticket", Toast.LENGTH_SHORT).show();
     }
 }

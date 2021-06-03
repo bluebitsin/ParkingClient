@@ -10,9 +10,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import com.bluebitsin.parkingclient.MainActivity;
+import com.bluebitsin.parkingclient.ParkingConstants;
 import com.bluebitsin.parkingclient.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -28,12 +30,6 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
     private TextView txtAvailableTickets;
     private Button btnBooking;
 
-    private OnClickBookingListener listener;
-
-    public interface OnClickBookingListener{
-        void onClickBooking();
-    }
-
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
         super.onAttach(context);
@@ -41,7 +37,6 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
         // Verify that the host activity implements the callback interface
         try {
             // Instantiate the NoticeDialogListener so we can send events to the host
-            listener = (OnClickBookingListener) context;
         } catch (ClassCastException e) {
             // The activity doesn't implement the interface, throw exception
             throw new ClassCastException(MainActivity.class.toString()
@@ -79,9 +74,12 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
         btnBooking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener != null){
-                    listener.onClickBooking();
-                }
+
+                Bundle args = new Bundle();
+                DialogFragment dialog = new BookingConfirmationDialog();
+                dialog.setArguments(args);
+                dialog.show(getActivity().getSupportFragmentManager(), ParkingConstants.TAG_SCAN_STATUS_DIALOG);
+
             }
         });
 

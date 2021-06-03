@@ -79,10 +79,8 @@ public class BookingConfirmationDialog extends DialogFragment {
         btnGenerateTicket = (Button) view.findViewById(R.id.btnCheckIn);
 
         // update views
-        String message = "Vehicle Model : "+args.getString(ParkingConstants.VEHICLE_MODEL)+
-                ", \nVehicle Number : "+args.getString(ParkingConstants.VEHICLE_NUMBER)+
-                ", \nParking Book Date : "+args.getString(ParkingConstants.PARKING_BOOK_DATE);
-        textAvailableSlots.setText(message);
+        String slots = "0";
+        textAvailableSlots.setText(slots);
 
         //add click listener
         btnGenerateTicket.setOnClickListener(new View.OnClickListener() {
