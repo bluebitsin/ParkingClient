@@ -2,18 +2,22 @@ package com.bluebitsin.parkingclient;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.bluebitsin.parkingclient.fragments.AccountFragment;
+import com.bluebitsin.parkingclient.fragments.BookingConfirmationDialog;
 import com.bluebitsin.parkingclient.fragments.ParkingFragment;
 import com.bluebitsin.parkingclient.fragments.SearchParkingFragment;
 import com.bluebitsin.parkingclient.fragments.TicketFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
+        ParkingFragment.OnClickBookingListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,5 +67,16 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
             return true;
         }
         return false;
+    }
+
+    @Override
+    public void onClickBooking() {
+
+        // show confirmation dialog
+        Bundle args = new Bundle();
+        DialogFragment dialog = new BookingConfirmationDialog();
+        dialog.setArguments(args);
+        dialog.show(getSupportFragmentManager(), ParkingConstants.TAG_SCAN_STATUS_DIALOG);
+        Toast.makeText(this, "Booking CLicked", Toast.LENGTH_SHORT).show();
     }
 }
