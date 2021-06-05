@@ -1,6 +1,11 @@
 package com.bluebitsin.parkingclient.utility;
 
+import com.bluebitsin.parkingclient.model.ParkingSlot;
+import com.bluebitsin.parkingclient.model.ParkingTicket;
+import com.bluebitsin.parkingclient.model.RequestReservation;
 import com.bluebitsin.parkingclient.model.User;
+
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -23,6 +28,15 @@ public interface ApiInterface {
     Call<ResponseBody> updateBookingStatus(@Body RequestCheckStatus requestCheckStatus);
 
 */
+
+    @POST("parking/add")
+    Call<ParkingTicket> addBooking(@Body RequestReservation user);
+
+    @GET("parking/all/{customerId}")
+    Call<List<ParkingTicket>> getParkingTickets(@Path("customerId") int customerId);
+
+    @GET("parking/slots/{customerId}")
+    Call<List<ParkingSlot>> getAvailableSlots(@Path("customerId") int customerId);
 
     @POST("user/login")
     @FormUrlEncoded

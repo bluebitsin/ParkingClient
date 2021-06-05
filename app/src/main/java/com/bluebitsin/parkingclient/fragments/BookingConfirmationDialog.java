@@ -79,7 +79,7 @@ public class BookingConfirmationDialog extends DialogFragment {
         btnGenerateTicket = (Button) view.findViewById(R.id.btnCheckIn);
 
         // update views
-        String slots = "0";
+        String slots = getArguments().getString(ParkingConstants.NUMBER_OF_SLOTS_AVAILABLE);
         textAvailableSlots.setText(slots);
 
         //add click listener

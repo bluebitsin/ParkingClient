@@ -16,6 +16,10 @@ import androidx.fragment.app.Fragment;
 import com.bluebitsin.parkingclient.MainActivity;
 import com.bluebitsin.parkingclient.ParkingConstants;
 import com.bluebitsin.parkingclient.R;
+import com.bluebitsin.parkingclient.model.ParkingSlot;
+import com.bluebitsin.parkingclient.model.User;
+import com.bluebitsin.parkingclient.utility.ApiClient;
+import com.bluebitsin.parkingclient.utility.ApiInterface;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -25,10 +29,18 @@ import com.google.android.gms.maps.model.LatLng;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ParkingFragment extends Fragment implements OnMapReadyCallback {
 
     private TextView txtAvailableTickets;
     private Button btnBooking;
+    private int customerId;
+    private String numberOfSlots;
 
     @Override
     public void onAttach(@NonNull @NotNull Context context) {
@@ -65,6 +77,10 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
     }
 
     private void initViews(View view) {
+
+        // get user
+        customerId = getArguments().getInt(ParkingConstants.CUSTOMER_ID);
+
         txtAvailableTickets = view.findViewById(R.id.txtAvailableTickets);
         btnBooking = view.findViewById(R.id.btnBooking);
     }
@@ -76,6 +92,7 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
             public void onClick(View v) {
 
                 Bundle args = new Bundle();
+                args.putCharSequence(ParkingConstants.NUMBER_OF_SLOTS_AVAILABLE, numberOfSlots);
                 DialogFragment dialog = new BookingConfirmationDialog();
                 dialog.setArguments(args);
                 dialog.show(getActivity().getSupportFragmentManager(), ParkingConstants.TAG_SCAN_STATUS_DIALOG);
@@ -83,6 +100,43 @@ public class ParkingFragment extends Fragment implements OnMapReadyCallback {
             }
         });
 
+    }
+
+    private void updateAvailableSlots(){
+        ApiInterface apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        Call<List<ParkingSlot>> call = apiService.getAvailableSlots(customerId);
+        call.enqueue(new Callback<List<ParkingSlot>>() {
+            @Override
+            public void onResponse(Call<List<ParkingSlot>> call, Response<List<ParkingSlot>> response) {
+
+                int responseCode = response.code();
+                if(responseCode == 200){
+
+                    List<ParkingSlot> slotList = response.body();
+                    numberOfSlots = slotList.size()+"";
+                    txtAvailableTickets.setText(numberOfSlots);
+
+                }else if(responseCode == 404){
+
+                    //do nothing
+
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<ParkingSlot>> call, Throwable t) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateAvailableSlots();
     }
 
     @Override

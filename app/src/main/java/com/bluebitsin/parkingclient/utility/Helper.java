@@ -22,4 +22,10 @@ public class Helper {
             return null;
         }
     }
+
+    public static String ticketNumber(String reservationId){
+
+        String[] splitId = reservationId.split("-");
+        return splitId[4].toUpperCase();
+    }
 }
