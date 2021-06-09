@@ -51,7 +51,7 @@ public class ParkingTicketAdapter extends RecyclerView.Adapter<ParkingTicketAdap
         String indicatorText = (ticket.getReservationStatus() == 0)? "Valid":"Invalid";
         int indicatorRes = (ticket.getReservationStatus() == 0)? R.drawable.ic_valid:R.drawable.ic_invalid;
         String ticketNumber = "#"+Helper.ticketNumber(ticket.getReservationId());
-        String bookingTime = ticket.getDate();
+        String bookingTime = Helper.getFormattedDateTime(ticket.getDate());
 
         //setting values to our views
         holder.txtIndicator.setText(indicatorText);

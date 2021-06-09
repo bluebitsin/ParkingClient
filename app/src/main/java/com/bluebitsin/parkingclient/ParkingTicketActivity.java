@@ -57,10 +57,13 @@ public class ParkingTicketActivity extends AppCompatActivity {
             String ticketNumber = "#"+Helper.ticketNumber(ticket.getReservationId());
             Bitmap qrCode = generateQRCode(ticket.getReservationId());
             String slotNumber = ticket.getSlotNumber()+ticket.getWing();
+            String [] dateTime = Helper.exploadDateTime(Helper.getFormattedDateTime(ticket.getDate()));
 
             imgQRCode.setImageBitmap(qrCode);
             txtTicketNumber.setText(ticketNumber);
             txtSlotNumber.setText(slotNumber);
+            txtDate.setText(dateTime[0]);
+            txtTime.setText(dateTime[1]);
 
         }
     }

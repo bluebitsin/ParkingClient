@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:elevation="3dp"
-        android:background="@drawable/bg_card_boder"
+        android:background="@drawable/bg_card_round_boder"
         android:layout_marginTop="15dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"

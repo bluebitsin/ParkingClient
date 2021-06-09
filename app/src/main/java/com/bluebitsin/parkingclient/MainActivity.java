@@ -34,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener,
-        BookingConfirmationDialog.BookingConfirmationListener {
+        BookingConfirmationDialog.BookingConfirmationListener, AccountFragment.OnUserLogoutListener {
 
     private User user;
     private ProgressDialog progressDialog;
@@ -179,4 +179,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
     }
 
 
+    @Override
+    public void onLogout() {
+        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        // set the new task and clear flags
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(i);
+        finish();
+    }
 }
